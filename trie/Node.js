@@ -6,9 +6,21 @@ class Node {
   }
 
   addEdge(node) {
-    const index = node.value.charCodeAt(0) - 65;
+    const index = node.value.charCodeAt(0) - 97;
     if (!this.edges[index]) {
       this.edges[index] = node;
     }
   }
 }
+
+const rootNode = new Node();
+const aNode = new Node('a');
+const nNode = new Node('n');
+const tNode = new Node('t', true);
+rootNode.addEdge(aNode);
+aNode.addEdge(nNode);
+nNode.addEdge(tNode);
+console.log('root', rootNode);
+console.log('aNode', aNode);
+console.log('nNode', nNode);
+console.log('tNode', tNode);
