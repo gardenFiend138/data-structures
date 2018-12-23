@@ -39,25 +39,29 @@ class Trie {
     let currentWord = '';
     let stack = [];
     let prevNode;
+    let currentPath = [];
 
     while (currentNode) {
 
       for (let node of currentNode.edges) {
-        if (node instanceof Node && !node.visited) {
-          node.visited = true;
+        if (node instanceof Node) {
           stack.push(node);
         }
       }
-      prevNode = currentNode;
       currentNode = stack.pop();
 
       if (currentNode) {
         currentWord += currentNode.value;
+
         if (currentNode.isWord) {
           allWords.push(currentWord);
           currentWord = '';
-          currentNode = prevNode;
+        } else {
+          currentPath.push(currentNode);
         }
+      }
+      if (currentPath.length) {
+        currentNode = currentPath.pop();
       }
     }
 
@@ -66,10 +70,13 @@ class Trie {
 }
 
 const trie = new Trie();
-trie.addWord('word');
-console.log(trie.hasWord('word'));
-console.log(trie.hasWord('dog'));
-trie.addWord('world');
-console.log(trie.hasWord('word'));
-console.log(trie.hasWord('world'));
+trie.addWord('dot');
+trie.addWord('bat');
+trie.addWord('ant');
+trie.addWord('zoo');
+trie.addWord('any');
+console.log(trie.hasWord('dot'));
+console.log(trie.hasWord('bat'));
+console.log(trie.hasWord('ant'));
+console.log(trie.hasWord('zoo'));
 console.log(trie.printAllWords());
